@@ -40,12 +40,22 @@ class Comments extends Component {
     console.log(listOfComments)
   }
 
+  isDeletedClicked = islikedId => {
+    const fiteredIndex = listOfComments.findIndex(
+      eachItem => eachItem.id === islikedId,
+    )
+    listOfComments.splice(fiteredIndex, 1)
+    this.setState({commentsList: listOfComments})
+    console.log(listOfComments)
+  }
+
   commentFunction = event => {
     const comment = event.target.value
     this.setState({comment})
   }
 
-  addToListFunction = () => {
+  addToListFunction = event => {
+    event.preventDefault()
     const {name, comment} = this.state
     if (name === '' || comment === '') {
       alert('Name or Comment is missing')
@@ -80,7 +90,7 @@ class Comments extends Component {
       <div className="css-bg-container">
         <h1 className="css-heading">Comments</h1>
         <div className="css-containers">
-          <div className="css-leftside-container">
+          <form className="css-leftside-container">
             <p>Say something about 4.0 Technologies</p>
             <input
               type="text"
@@ -97,13 +107,13 @@ class Comments extends Component {
               onChange={this.commentFunction}
             />
             <button
-              type="button"
+              type="submit"
               className="css-button-itself"
               onClick={this.addToListFunction}
             >
               Add Comment
             </button>
-          </div>
+          </form>
           <div className="css-rightside-container">
             <img
               src="https://assets.ccbp.in/frontend/react-js/comments-app/comments-img.png"
@@ -112,12 +122,14 @@ class Comments extends Component {
             />
           </div>
         </div>
+        <p>{count} Comments</p>
         <ul className="css-ul-container">
           {count !== 0 &&
             commentsList.map(eachComment => (
               <CommentItem
                 commentItem={eachComment}
                 islikedFunction={this.islikedFunctionClicked}
+                isDeleteFunction={this.isDeletedClicked}
                 key={eachComment.id}
               />
             ))}

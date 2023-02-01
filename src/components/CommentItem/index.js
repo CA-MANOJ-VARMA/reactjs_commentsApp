@@ -3,12 +3,16 @@ import './index.css'
 
 const CommentItem = props => {
   //   let likeId = ''
-  const {commentItem, islikedFunction} = props
+  const {commentItem, islikedFunction, isDeleteFunction} = props
   const {name, comment, date, id, isLiked, colourSet} = commentItem
   console.log(isLiked)
 
   const likeFunction = likedId => {
     islikedFunction(likedId)
+  }
+
+  const isDeletedClicked = likedId => {
+    isDeleteFunction(likedId)
   }
 
   return (
@@ -29,27 +33,32 @@ const CommentItem = props => {
       </div>
       <div className="css-bottom-container">
         <div className="css-like-container">
-          {isLiked ? (
-            <img
-              src="https://assets.ccbp.in/frontend/react-js/comments-app/liked-img.png"
-              alt="liked"
-            />
-          ) : (
-            <img
-              src="https://assets.ccbp.in/frontend/react-js/comments-app/like-img.png"
-              alt="like"
-            />
-          )}
           <button
             type="button"
             className="css-like-delete-button-itself"
             onClick={() => likeFunction(id)}
           >
+            {isLiked ? (
+              <img
+                src="https://assets.ccbp.in/frontend/react-js/comments-app/liked-img.png"
+                alt="like"
+              />
+            ) : (
+              <img
+                src="https://assets.ccbp.in/frontend/react-js/comments-app/like-img.png"
+                alt="like"
+              />
+            )}
             Like
           </button>
         </div>
         <div className="css-delete-container">
-          <button type="button" className="css-like-delete-button-itself">
+          <button
+            type="button"
+            className="css-like-delete-button-itself"
+            onClick={isDeletedClicked}
+            data-testid="delete"
+          >
             <img
               src="https://assets.ccbp.in/frontend/react-js/comments-app/delete-img.png"
               alt="delete"

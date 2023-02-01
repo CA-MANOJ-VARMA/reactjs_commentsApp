@@ -76,3 +76,7 @@
   background-color: transparent;
   border-width: 0;
 }
+
+.css-like-delete-button-itself:hover {
+  cursor: pointer;
+}
