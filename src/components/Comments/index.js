@@ -23,7 +23,7 @@ class Comments extends Component {
     comment: '',
     count: 0,
     colourSet: '',
-    commentsList: '',
+    commentsList: [],
   }
 
   nameFunction = event => {
@@ -45,7 +45,10 @@ class Comments extends Component {
       eachItem => eachItem.id === islikedId,
     )
     listOfComments.splice(fiteredIndex, 1)
-    this.setState({commentsList: listOfComments})
+    this.setState(prevState => ({
+      count: prevState.count - 1,
+      commentsList: listOfComments,
+    }))
     console.log(listOfComments)
   }
 
@@ -80,17 +83,17 @@ class Comments extends Component {
         comment: '',
       }))
     }
-    console.log(listOfComments)
   }
 
   render() {
     const {name, comment, count, commentsList} = this.state
+    console.log(commentsList)
     console.log(listOfComments.length)
     return (
       <div className="css-bg-container">
         <h1 className="css-heading">Comments</h1>
         <div className="css-containers">
-          <form className="css-leftside-container">
+          <form className="css-leftside-container" type="submit">
             <p>Say something about 4.0 Technologies</p>
             <input
               type="text"
@@ -107,7 +110,7 @@ class Comments extends Component {
               onChange={this.commentFunction}
             />
             <button
-              type="submit"
+              type="button"
               className="css-button-itself"
               onClick={this.addToListFunction}
             >
